@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rupia's Math Game</title>
+    <style>
+      /* Background and font styling */
+      body {
+        background: linear-gradient(to right, #83a4d4, #b6fbff);
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        color: #333;
+      }
+
+      /* Container styling */
+      .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+      }
+
+      /* Header styling */
+      h1 {
+        color: #0074d9;
+      }
+
+      h2 {
+        color: #ff4136;
+      }
+
+      /* Score and message styling */
+      p {
+        font-size: 1.1em;
+        margin: 10px 0;
+      }
+
+      /* Input field styling */
+      input[type="number"] {
+        padding: 8px;
+        font-size: 1em;
+        border-radius: 5px;
+        border: 2px solid #0074d9;
+        outline: none;
+        width: calc(100% - 22px);
+        margin-bottom: 15px;
+      }
+
+      /* Button styling */
+      button {
+        background-color: #0074d9;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #005bb5;
+      }
+
+      /* Reset button styling */
+      .reset-button {
+        background-color: #ff4136;
+        margin-top: 10px;
+      }
+
+      .reset-button:hover {
+        background-color: #cc331f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎉 Kids Math Game 🎉</h1>
+
+      <!-- Display the current score -->
+      <p><strong>Your Score:</strong> {{ score }}</p>
+
+      <!-- Display the message if there is one -->
+      {% if message %}
+      <p
+        style="color: {% if message.startswith('Correct') %}green{% else %}red{% endif %}; font-weight: bold;"
+      >
+        {{ message }}
+      </p>
+      {% endif %}
+
+      <!-- Display the math problem -->
+      <h2>Solve: {{ problem }}</h2>
+
+      <!-- Form to submit the answer -->
+      <form method="post">
+        <input
+          type="number"
+          step="any"
+          name="answer"
+          placeholder="Enter your answer"
+          required
+        />
+        <button type="submit">Submit Answer</button>
+      </form>
+
+      <!-- Reset button to reset the score -->
+      <form action="{{ url_for('reset') }}" method="get">
+        <button type="submit" class="reset-button">Reset Game</button>
+      </form>
+    </div>
+  </body>
+</html>
